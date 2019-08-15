@@ -4,10 +4,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const expressValidator = require('express-validator');
-const http = require('http');
-const server = http.Server(app);
-const socketIO = require('socket.io');
-const io = socketIO(server);
 require('dotenv').config();
 const userRoutes = require('./routes/user.routes');
 
@@ -55,18 +51,7 @@ app.get('/', (req, res) => {
     res.json('Welcome to Tracker App');
 });
 
-io.on('connection', function (socket) {
-    console.log('Client connected.');
-    socket.on('disconnect', function () {
-        console.log('Client disconnected.');
-    });
-    socket.on('new-location', (location) => {
-        console.log(location);
-        io.emit('location', location);
-    });
-});
-
-server.listen(config.PORT, () => {
+app.listen(config.PORT, () => {
     console.log("Server is listening on port " + config.PORT);
     startMongo(config.mongo);
 });
