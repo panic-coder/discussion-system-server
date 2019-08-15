@@ -1,10 +1,6 @@
 const userService = require('../services/user.services');
 const jwtService = require('../services/jwt.services');
 const constantsParam = require('../constants/static.js');
-// const errorHandler = require('../handlers/systemError.handler');
-// const logger = require('../services/logger.services');
-const userModel = require('../app/models/user.model');
-// const communication = require('../services/communication.services');
 var jwt = require('jsonwebtoken');
 const secret = process.env.SECRET;
 
