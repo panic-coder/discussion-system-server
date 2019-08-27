@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const expressValidator = require('express-validator');
 require('dotenv').config();
-const userRoutes = require('./routes/user.routes');
+const routes = require('./routes/topic.routes');
 
 var env = process.env.NODE_ENV || "local";
 var config = require("./config/" + env);
@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(expressValidator());
-app.use('/', userRoutes);
+app.use('/', routes);
 
 mongoose.Promise = global.Promise;
 
@@ -48,7 +48,7 @@ function startMongo(mongoObj) {
 }
 
 app.get('/', (req, res) => {
-    res.json('Welcome to Tracker App');
+    res.json('Welcome to Discussion App');
 });
 
 app.listen(config.PORT, () => {
