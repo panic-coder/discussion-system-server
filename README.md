@@ -21,6 +21,12 @@ cd discussion-system-server
 
 npm install
 
+### Normal start
+    node server.js
+
+### Nodemon start
+    npm run dev
+
 ## Create .env with the data below
 
 PORT=3000
