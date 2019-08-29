@@ -20,53 +20,66 @@ exports.getConversationAsPerPost = (data, callback) => {
                 operations.push((function (resultData) {
                     return function (cb) {
                         var finalConversation = {
+                            topic: {},
                             comment: {},
                             reply: [],
                         }
-                        finalConversation.comment = resultData;
-                        console.log(resultData);
-                        if ((resultData.reply_of_reply_flag) && (resultData.topic_id !== null && resultData.topic_id !== undefined && resultData.topic_id !== '')) {
-                            console.log("If");
-                            var searchData = {
-                                topic_id: resultData.topic_id,
-                                reply_of_reply_flag: resultData.reply_of_reply_flag,
-                                conversation_id: resultData._id
-                            };
-                            ConversationModel.findReplyByRedirectId(searchData, (error, result) => {
-                                if (error) {
-                                    cb(error, null);
-                                } else {
-                                    finalConversation.reply = result;
-                                    finalConversationArray.push(finalConversation);
-                                    cb(null, result);
-                                }
-                            })
-                        } else {
-                            console.log("else");
-                            finalConversationArray.push(finalConversation);
-                            cb(null, resultData);
+                        finalConversation.topic = resultData.topic_id;
+                        delete resultData["topic_id"];
+                        var commentData = {
+                            "reply_of_reply_flag": resultData.reply_of_reply_flag,
+                            "_id": resultData._id,
+                            "user_id": resultData.user_id,
+                            "message": resultData.message,
+                            "creator_stamp": resultData.creator_stamp,
+                            "update_stamp": resultData.update_stamp,
+                            "__v": resultData.__v
                         }
-                    }
-                })(resultData))
+                        finalConversation.comment = commentData;
+
+                            console.log(resultData);
+                            if((resultData.reply_of_reply_flag) && (resultData.topic_id !== null && resultData.topic_id !== undefined && resultData.topic_id !== '')) {
+                        console.log("If");
+                        var searchData = {
+                            topic_id: resultData.topic_id,
+                            reply_of_reply_flag: resultData.reply_of_reply_flag,
+                            conversation_id: resultData._id
+                        };
+                        ConversationModel.findReplyByRedirectId(searchData, (error, result) => {
+                            if (error) {
+                                cb(error, null);
+                            } else {
+                                finalConversation.reply = result;
+                                finalConversationArray.push(finalConversation);
+                                cb(null, result);
+                            }
+                        })
+                    } else {
+                        console.log("else");
+                        finalConversationArray.push(finalConversation);
+                        cb(null, resultData);
             }
-            async.series(operations, (errorAsync, resultAsync) => {
-                // console.log("Error : ", errorAsync);
-                // console.log("resultAsync : ", resultAsync);
-                if (errorAsync) {
-                    callback(errorAsync);
-                } else {
-                    callback(null, finalConversationArray);
-                }
-            })
+        }
+                }) (resultData))
+            }
+async.series(operations, (errorAsync, resultAsync) => {
+    // console.log("Error : ", errorAsync);
+    // console.log("resultAsync : ", resultAsync);
+    if (errorAsync) {
+        callback(errorAsync);
+    } else {
+        callback(null, finalConversationArray);
+    }
+})
         }
     ],
-        function (error, result) {
-            if (error) {
-                callback(error, null);
-            } else {
-                callback(null, finalConversationArray);
-            }
-        })
+function (error, result) {
+    if (error) {
+        callback(error, null);
+    } else {
+        callback(null, finalConversationArray);
+    }
+})
 }
 
 exports.addTopicConversation = (data, callback) => {

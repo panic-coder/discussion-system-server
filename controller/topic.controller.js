@@ -148,10 +148,10 @@ exports.addTopic = async (req, res, next) => {
                 name_of_topic: req.body.name_of_topic
             }
             var checkTopic = await topicService.addTopic(searchData);
-            var allTopicData = await topicService.getAllTopic();
+            // var allTopicData = await topicService.getAllTopic();
             if (checkTopic._id !== null && checkTopic._id !== undefined && checkTopic._id !== '') {
                 responseResult.status = true;
-                responseResult.data = allTopicData;
+                responseResult.data = checkTopic;
                 responseResult.message = "Topic added and all topics retrived Successfully";
                 res.status(constantsParam.staticHTTPSuccessMessages.CREATED.successResponseCode).send(responseResult);
             } else {
@@ -173,7 +173,7 @@ exports.getAllTopic = async (req, res, next) => {
             responseResult.status = true;
             responseResult.data = allTopicData;
             responseResult.message = "All topics retrived Successfully";
-            res.status(constantsParam.staticHTTPSuccessMessages.CREATED.successResponseCode).send(responseResult);
+            res.status(constantsParam.staticHTTPSuccessMessages.OK.successResponseCode).send(responseResult);
         } else {
             responseResult.status = false;
             responseResult.message = "Can't fetch topic, contact admin";

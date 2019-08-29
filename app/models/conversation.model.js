@@ -53,7 +53,8 @@ ConversationSchemaModel.prototype.getAsPerTopic = (searchData, callback) => {
         // reply_of_reply_flag: false
         conversation_id: undefined
     };
-    Conversation.find(search, (error, result) => {
+    // Conversation.find(search, (error, result) => {
+        Conversation.find(search).populate('topic_id').exec(function (error, result) {
         if (error) {
             callback(error, null);
         } else {

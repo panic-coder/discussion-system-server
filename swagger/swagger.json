@@ -115,7 +115,7 @@
                 }
             }
         },
-        "topic/{topic_id}": {
+        "/topic/{topic_id}": {
             "get": {
                 "tags": [
                     "conversation"
