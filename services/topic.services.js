@@ -23,3 +23,15 @@ exports.addTopic = (topicData) => {
             })
     })
 }
+
+exports.getAllTopic = () => {
+    return new Promise(function (resolve, reject) {
+        topicModel.getAllTopic((error, result) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(result);
+            }
+        })
+    })
+}

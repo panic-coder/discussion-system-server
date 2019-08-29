@@ -64,6 +64,7 @@ ConversationSchemaModel.prototype.getAsPerTopic = (searchData, callback) => {
 
 ConversationSchemaModel.prototype.findReplyByRedirectId = (searchData, callback) => {
     var search = {
+        // _id: searchData.conversation_id,
         topic_id: searchData.topic_id,
         // reply_of_reply_flag: true,
         conversation_id: searchData.conversation_id

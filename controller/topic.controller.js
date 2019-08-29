@@ -148,9 +148,11 @@ exports.addTopic = async (req, res, next) => {
                 name_of_topic: req.body.name_of_topic
             }
             var checkTopic = await topicService.addTopic(searchData);
+            var allTopicData = await topicService.getAllTopic();
             if (checkTopic._id !== null && checkTopic._id !== undefined && checkTopic._id !== '') {
                 responseResult.status = true;
-                responseResult.message = "Topic added Successfully";
+                responseResult.data = allTopicData;
+                responseResult.message = "Topic added and all topics retrived Successfully";
                 res.status(constantsParam.staticHTTPSuccessMessages.CREATED.successResponseCode).send(responseResult);
             } else {
                 responseResult.status = false;

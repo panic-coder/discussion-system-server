@@ -49,4 +49,14 @@ TopicSchemaModel.prototype.checkTopic = (checkTopicData, callback) => {
     })
 }
 
+TopicSchemaModel.prototype.getAllTopic = (callback) => {
+    Topic.find({}, (error, result) => {
+        if (error) {
+            callback(error, null);
+        } else {
+            callback(null, result);
+        }
+    })
+}
+
 module.exports = new TopicSchemaModel();

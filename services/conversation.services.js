@@ -14,20 +14,19 @@ exports.getConversationAsPerPost = (data, callback) => {
             })
         },
         function (data, callback) {
-            var finalConversation = {
-                comment: {},
-                reply: [],
-            }
-            console.log(data);
             var operations = [];
             for (let i = 0; i < data.length; i++) {
                 var resultData = data[i];
-                finalConversation.comment = resultData;
                 operations.push((function (resultData) {
                     return function (cb) {
+                        var finalConversation = {
+                            comment: {},
+                            reply: [],
+                        }
+                        finalConversation.comment = resultData;
                         console.log(resultData);
                         if ((resultData.reply_of_reply_flag) && (resultData.topic_id !== null && resultData.topic_id !== undefined && resultData.topic_id !== '')) {
-                            // console.log("If");
+                            console.log("If");
                             var searchData = {
                                 topic_id: resultData.topic_id,
                                 reply_of_reply_flag: resultData.reply_of_reply_flag,
@@ -45,7 +44,7 @@ exports.getConversationAsPerPost = (data, callback) => {
                         } else {
                             console.log("else");
                             finalConversationArray.push(finalConversation);
-                            cb(null, resultData)
+                            cb(null, resultData);
                         }
                     }
                 })(resultData))
