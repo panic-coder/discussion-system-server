@@ -30,9 +30,13 @@ npm install
 ## Create .env with the data below
 
 PORT=3000
+
 NODE_ENV=local
+
 DB=mongodb://localhost:27017/discussion
+
 SECRET=discussion
+
 SALT=10
 
 
