@@ -5,7 +5,7 @@ const ConversationService = require('../services/conversation.services');
 const topicService = require('../services/topic.services');
 
 /**
- * @description topic controller get a full discussion conversation as per as redirect post
+ * @description topic controller get a full discussion conversation as per as topic id
  */
 exports.getTopic = (req, res, next) => {
     var responseResult = {};
@@ -32,7 +32,7 @@ exports.getTopic = (req, res, next) => {
 }
 
 /**
- * @description topic controller to add a new conversation as per as redirect id
+ * @description topic controller to add a new conversation as per as topic id
  */
 exports.addConversation = (req, res, next) => {
     var responseResult = {};
@@ -132,7 +132,7 @@ exports.addConversation = (req, res, next) => {
 }
 
 /**
- * @description topic controller add / check new topic and link it with redirect post
+ * @description topic controller add / check new topic and link it
  */
 exports.addTopic = async (req, res, next) => {
     var responseResult = {};
@@ -159,6 +159,25 @@ exports.addTopic = async (req, res, next) => {
                 responseResult.message = "Something went wrong";
                 return res.status(constantsParam.staticHTTPErrorMessages.INTERNAL_SERVER_ERROR.errorResponseCode).send(responseResult);
             }
+        }
+    } catch (error) {
+        next(error);
+    }
+}
+
+exports.getAllTopic = async (req, res, next) => {
+    var responseResult = {};
+    try {
+        var allTopicData = await topicService.getAllTopic();
+        if (allTopicData !== null && allTopicData !== undefined && allTopicData !== '') {
+            responseResult.status = true;
+            responseResult.data = allTopicData;
+            responseResult.message = "All topics retrived Successfully";
+            res.status(constantsParam.staticHTTPSuccessMessages.CREATED.successResponseCode).send(responseResult);
+        } else {
+            responseResult.status = false;
+            responseResult.message = "Can't fetch topic, contact admin";
+            return res.status(constantsParam.staticHTTPErrorMessages.INTERNAL_SERVER_ERROR.errorResponseCode).send(responseResult);
         }
     } catch (error) {
         next(error);

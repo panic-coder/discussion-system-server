@@ -1,0 +1,186 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a Discussion System API.",
+        "version": "1.0.0",
+        "title": "Discussion System Swagger API Library",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "email": "androidshubham@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "",
+    "tags": [{
+        "name": "conversation",
+        "description": "Operation for conversation"
+    }],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "paths": {
+        "/topic": {
+            "post": {
+                "tags": [
+                    "conversation"
+                ],
+                "summary": "add topic",
+                "description": "Add topic for a conversation to start.",
+                "operationId": "addTopic",
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [{
+                    "in": "body",
+                    "name": "body",
+                    "description": "adding a new topic",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/topic"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successfull operation"
+                    },
+                    "400": {
+                        "description": "Invalid username supplied"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "conversation"
+                ],
+                "summary": "get all topic",
+                "description": "Get all the topics.",
+                "operationId": "logout",
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfull operation"
+                    },
+                    "400": {
+                        "description": "Invalid username supplied"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
+        },
+        "/topic/conversation": {
+            "post": {
+                "tags": [
+                    "conversation"
+                ],
+                "summary": "add conversation",
+                "description": "Adding conversation to a specified topic.",
+                "operationId": "addConversation",
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [{
+                    "in": "body",
+                    "name": "body",
+                    "description": "Add conversation",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/addConversation"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successfull operation"
+                    },
+                    "400": {
+                        "description": "Invalid username supplied"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
+        },
+        "topic/{topic_id}": {
+            "get": {
+                "tags": [
+                    "conversation"
+                ],
+                "summary": "get topic conversation",
+                "description": "Get a conversation on a particular topic by topic id.",
+                "operationId": "logout",
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "topic_id",
+                    "description": "topic id is required",
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successfull operation"
+                    },
+                    "400": {
+                        "description": "Invalid username supplied"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "topic": {
+            "type": "object",
+            "properties": {
+                "name_of_topic": {
+                    "type": "String"
+                }
+            },
+            "example": {
+                "name_of_topic": "never say never"
+            }
+        },
+        "addConversation": {
+            "type": "object",
+            "properties": {
+                "topic_id": {
+                    "type": "String"
+                },
+                "message": {
+                    "type": "String"
+                },
+                "name": {
+                    "type": "String"
+                },
+                "email": {
+                    "type": "String"
+                }
+            },
+            "example": {
+                "topic_id": "5d64fa855a31a17c82d79174",
+                "message": "Hard time don't stay for long but hard poeple do.",
+                "name": "Kumar Shubham",
+                "email": "androidshubham@gmail.com"
+            }
+        }
+    }
+}

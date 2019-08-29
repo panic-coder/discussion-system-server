@@ -13,9 +13,14 @@ router.post('/topic/conversation', Topic.addConversation);
 router.get('/topic/:topic_id', Topic.getTopic);
 
 /**
- * @description api route to add and link the topic with the redirect post
+ * @description api route to add and topic
  */
 router.post('/topic', Topic.addTopic);
+
+/**
+ * @description api route to get all topics
+ */
+router.get('/topic', Topic.getAllTopic);
 
 /**
  * @description exporting all the router module for accessing it in server.js file

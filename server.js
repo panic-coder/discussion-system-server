@@ -6,6 +6,8 @@ const cors = require('cors');
 const expressValidator = require('express-validator');
 require('dotenv').config();
 const routes = require('./routes/topic.routes');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger/swagger.json');
 
 var env = process.env.NODE_ENV || "local";
 var config = require("./config/" + env);
@@ -19,6 +21,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(expressValidator());
+app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/', routes);
 
 mongoose.Promise = global.Promise;
