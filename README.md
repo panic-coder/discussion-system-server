@@ -35,11 +35,6 @@ NODE_ENV=local
 
 DB=mongodb://localhost:27017/discussion
 
-SECRET=discussion
-
-SALT=10
-
-
 ## Steps to install the requirements in ubuntu machine
 
 ### Installing node
